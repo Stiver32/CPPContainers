@@ -16,7 +16,7 @@ struct mVector
 		// create new array with capacity of capacity*2
 		T* _newData = new T[_capacity * 2]; //temp ptr so dont lose data in _data
 		// fill the contents of the new array with the contents of the old array
-		for (size_t i : size){
+		for (size_t i = 0; i < _size; i++) {
 			_newData[i] = _data[i];
 		}
 		delete[] _data; // delete old array and assign contents of new array to _data
@@ -32,7 +32,7 @@ struct mVector
 			resize();
 		}
 		_data[_size] = element; //add new element to end of container
-		size_++; //increment size
+		_size++; //increment size
 	}
 
 
