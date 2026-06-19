@@ -11,6 +11,31 @@ struct mVector
 		_data = new T[_capacity];
 	}
 	
+	void resize()
+	{
+		// create new array with capacity of capacity*2
+		T* _newData = new T[_capacity * 2]; //temp ptr so dont lose data in _data
+		// fill the contents of the new array with the contents of the old array
+		for (size_t i : size){
+			_newData[i] = _data[i];
+		}
+		delete[] _data; // delete old array and assign contents of new array to _data
+		_data = _newData;
+	}
+		
+
+	//note: different from vector.insert
+	void push_back(const T &element)
+	{
+		// expand capacity
+		if (_size == _capacity) {
+			resize();
+		}
+		_data[_size] = element; //add new element to end of container
+		size_++; //increment size
+	}
+
+
 
 	~mVector()
 	{
