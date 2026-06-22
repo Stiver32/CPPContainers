@@ -10,7 +10,42 @@ struct mVector
 		//when vector is created, we want a new array created of type T (allocated at runtime)
 		_data = new T[_capacity];
 	}
-	
+
+	//copy constructor
+	mVector(const mVector& other)
+	{
+
+	}
+
+	//copy assignment operator, handle self-assignment(same vector is assigned to itself)
+	// release existing memory, then perform a deep copy of the other vector.
+	mVector& operator=(const mVector& other)
+	{
+
+	}
+
+
+	//avoid deep copies when not needed.
+	//move constructor transfers memory ownership from object to object
+	mVector(mVector&& other) 
+	{
+
+	}
+
+	//move assignment
+	mVector& operator=(mVector&& other)
+	{
+
+	}
+
+
+
+
+
+
+
+
+
 	void resize()
 	{
 		// create new array with capacity of capacity*2
@@ -34,6 +69,9 @@ struct mVector
 		_data[_size] = element; //add new element to end of container
 		_size++; //increment size
 	}
+
+	
+
 
 
 
