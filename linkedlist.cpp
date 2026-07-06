@@ -42,8 +42,35 @@ public:
 			_tail = newNode; //set tail to added node
 		}
 		++_listSize;
-
 	}
+
+
+	//method to push_front
+	void push_front(const T& value)
+	{
+		Node* newNode = new Node(value);
+		//(*newNode).next = _head
+		newNode->_next = _head; //set newnode's next to be _head
+		_head = newNode; //set head to newnode
+
+		if (_tail == nullptr)
+		{
+			_tail = newNode;
+		}
+		++_listSize;
+	}
+
+	T& operator[](size_t index)
+	{
+		Node* curr = _head; //set new current node to beginning of list (head)
+		//iterate thru list
+		// while index < i(0)
+		// when index !< i, move current ptr forward by one
+			// set current = current->next
+		//when index == i
+		return current->value;
+	}
+	
 	//method to remove from list
 	
 };
