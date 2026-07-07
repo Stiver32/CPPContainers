@@ -60,17 +60,56 @@ public:
 		++_listSize;
 	}
 
-	T& operator[](size_t index)
+	T& get(size_t index)
 	{
+		if (index >= _listSize)
+		{
+			throw std::out_of_range("index out of range");
+		}
 		Node* curr = _head; //set new current node to beginning of list (head)
 		//iterate thru list
 		// while index < i(0)
 		// when index !< i, move current ptr forward by one
+		for (std::size_t i = 0; i < index; ++i)
+		{
 			// set current = current->next
-		//when index == i
-		return current->value;
+			curr = curr->_next;
+		}
+			
+		return curr->_data;
+	}
+
+	const T& get(size_t index)const
+	{
+		if (index >= _listSize)
+		{
+			throw std::out_of_range("index out of range");
+		}
+		Node* curr = _head; //set new current node to beginning of list (head)
+		//iterate thru list
+		// while index < i(0)
+		// when index !< i, move current ptr forward by one
+		for (std::size_t i = 0; i < index; ++i)
+		{
+			// set current = current->next
+			curr = curr->_next;
+		}
+
+		return curr->_data;
 	}
 	
+	T& front()
+	{
+		if (empty())
+		{
+
+		}
+	}
+	bool empty() const
+	{
+		return _listSize == 0;
+	}
+
 	//method to remove from list
 	
 };
