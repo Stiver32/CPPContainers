@@ -10,8 +10,8 @@ private:
 	};
 public:
 
-	Node* _head; 
-	Node* _tail; 
+	Node* _head;
+	Node* _tail;
 	std::size_t _listSize;
 
 	// Default constructor
@@ -33,7 +33,7 @@ public:
 	}
 
 	// Method to add to list (from front)
-	void push_front(const T& value){
+	void push_front(const T& value) {
 		Node* newNode = new Node(value); // note: (*newNode).next = _head
 		newNode->_next = _head; // Set newnode's next to be _head
 		_head = newNode; // Set _head to newnode
@@ -49,7 +49,7 @@ public:
 			throw std::out_of_range("index out of range");
 		}
 		// Set new current node to beginning of list (head)
-		Node* curr = _head; 
+		Node* curr = _head;
 		// Iterate thru list while index < i(0). When index !< i, move current ptr forward by one
 		for (std::size_t i = 0; i < index; ++i) {
 			curr = curr->_next;
@@ -103,7 +103,7 @@ public:
 	}
 
 	// Method returns list size
-	std::size_t size() const{
+	std::size_t size() const {
 		return _listSize;
 	}
 
@@ -112,7 +112,7 @@ public:
 	bool empty() const {
 		return _listSize == 0;
 	}
-	
+
 	// Method to clear list 
 	void clear() {
 		//set curr to head
@@ -129,5 +129,8 @@ public:
 		_listSize = 0;
 	}
 
-	~LinkedList();
+	~LinkedList()
+	{
+		clear();
+	}
 };

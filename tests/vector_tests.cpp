@@ -1,15 +1,16 @@
-#include "../vector.cpp"
+#define DOCTEST_CONFIG_IMPLEMENT_WITH_MAIN  
+#include "doctest.h"
+
+#include "../include/vector.hpp"
+#include "../include/linkedlist.hpp"
+
 #include <iostream>
 
-int main()
+TEST_CASE("testing function")
 {
-	mVector<int> v1;
-	mVector<int> v2;
-	std::cout << v1._size << "\n";
-	v1.push_back(64);
-	std::cout << v1._size << "\n";
-	v1.push_back(62);
-	std::cout << v1._size << "\n";
-
-
+	mVector<int> v(5);
+	
+	REQUIRE(v._size == 5);
+	REQUIRE(v._capacity == 5);
+	CHECK(v._size == 5);
 }

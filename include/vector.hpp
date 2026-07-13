@@ -10,6 +10,12 @@ struct mVector
 	{
 		//when vector is created, we want a new array created of type T (allocated at runtime)
 		_data = new T[_capacity];
+
+	}
+	//initialize vector of given capacity. size is c
+	mVector(size_t capacity) : _size(capacity), _capacity(capacity)
+	{
+		_data = new T[_capacity]();
 	}
 
 	//copy constructor
@@ -18,7 +24,7 @@ struct mVector
 		_size = other._size;
 		_capacity = other._capacity;
 		_data = new T[_capacity];
-		for (size_t i = 0; i < _size; ++i){
+		for (size_t i = 0; i < _size; ++i) {
 			_data[i] = other._data[i];
 		}
 	}
@@ -81,10 +87,10 @@ struct mVector
 		delete[] _data; // delete old array and assign contents of new array to _data
 		_data = _newData;
 	}
-		
+
 
 	//note: different from vector.insert
-	void push_back(const T &element)
+	void push_back(const T& element)
 	{
 		// expand capacity
 		if (_size == _capacity) {
@@ -98,7 +104,7 @@ struct mVector
 	//note: pop_back should prolly DESTROY THE ELEMENT. types with destructors will cause issues
 	void pop_back()
 	{
-		if(_size>0)
+		if (_size > 0)
 			_size--;
 	}
 
@@ -111,7 +117,7 @@ struct mVector
 	size_t getCapacity() const
 	{
 		return _capacity;
-	} 
+	}
 
 	//overload [] operator for random access functionality
 	T& operator[](size_t index)
@@ -141,6 +147,6 @@ struct mVector
 	{
 		delete[] _data;
 	}
-	
+
 
 };
