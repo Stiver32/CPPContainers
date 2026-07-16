@@ -110,20 +110,16 @@ struct mVector
 
 
 
-	size_t getSize() const
-	{
+	size_t getSize() const{
 		return _size;
 	}
-	size_t getCapacity() const
-	{
+	size_t getCapacity() const{
 		return _capacity;
 	}
 
 	//overload [] operator for random access functionality
-	T& operator[](size_t index)
-	{
-		if (index >= _size)
-		{
+	T& operator[](size_t index){
+		if (index >= _size){
 			throw std::out_of_range("index out of bounds");
 		}
 		return _data[index];
@@ -134,17 +130,25 @@ struct mVector
 	// the method itself needs to be marked const too:
 		//The const after the parentheses marks the method as callable on a const object —
 		// without it the compiler can't distinguish which version to call.
-	//return beginning of vector
+	//return ptr to first element
 	T* begin() { return _data; }
 	const T* begin() const { return _data; }
 
-	//return end 
+	//return ptr to ending element
 	T* end() { return _data + _size; }
 	const T* end() const { return _data + _size; }
 
-
-	~mVector()
+	T& front()
 	{
+		return *begin();
+	}
+
+	const T& front() const
+	{
+		return *begin();
+	}
+
+	~mVector(){
 		delete[] _data;
 	}
 
