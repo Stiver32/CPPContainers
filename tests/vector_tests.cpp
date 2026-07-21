@@ -20,11 +20,14 @@ TEST_CASE("Vector - push back")
 {
 	mVector<int>v(7);
 	v.push_back(8);
+	CHECK(v[7] == 8);
+
 }
 
 TEST_CASE("Vector - pop back")
 {
-
+	mVector<int>v(7);
+	v.pop_back();
 }
 
 TEST_CASE("Vector - [] operator")

@@ -105,7 +105,8 @@ struct mVector
 	void pop_back()
 	{
 		if (_size > 0)
-			_size--;
+			//_size--;
+			_data[_size - 1].~T(); //call destructor on last element
 	}
 
 
