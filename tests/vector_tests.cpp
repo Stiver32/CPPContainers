@@ -35,16 +35,16 @@ TEST_CASE("Vector - [] operator")
 	CHECK(v[4] == 5);
 }
 
-//TEST_CASE("Vector - beginning")
-//{
-//	mVector<int>v(5);
-//
-//	for (int i = 0; i < v._capacity; i++)
-//	{
-//		v[i] = i;
-//	}
-//	CHECK(v.front() == 0);
-//}
+TEST_CASE("Vector - beginning")
+{
+	mVector<int>v(5);
+
+	for (int i = 0; i < v._capacity; i++)
+	{
+		v[i] = i;
+	}
+	CHECK(v.front() == 0);
+}
 
 
 
