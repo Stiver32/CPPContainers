@@ -6,6 +6,7 @@
 
 #include <iostream>
 
+
 TEST_CASE("Test Vector size and capacity")
 {
 	mVector<int> v(5);
@@ -28,6 +29,14 @@ TEST_CASE("Vector - pop back")
 {
 	mVector<int>v(7);
 	v.pop_back();
+	CHECK(v.getSize() == 6); 
+}
+
+TEST_CASE("Vector - pop back - empty")
+{
+	mVector<int>v;
+	v.pop_back();
+	CHECK(v.getSize() == 0);
 }
 
 TEST_CASE("Vector - [] operator")
@@ -49,99 +58,68 @@ TEST_CASE("Vector - beginning")
 	CHECK(v.front() == 0);
 }
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+TEST_CASE("Vector - move constructor")
+{
+	mVector<int>a;
+	a.push_back(1);
+	a.push_back(2);
+
+	mVector<int>b = std::move(a); //invoke move
+
+	CHECK(b.getSize() == 2);
+	CHECK(b.getCapacity() == 3);
+	CHECK(b[0] == 1);
+	CHECK(a.getSize() == 0);
+	CHECK(a.getCapacity() == 0);
+	CHECK(a.begin() == nullptr);
+
+}
+
+TEST_CASE("Vector - move assignment")
+{
+	mVector<int> a; 
+	a.push_back(1);
+	a.push_back(2);
+
+	mVector<int> b; 
+	b = std::move(a); // invoke move assignment 
+	
+	CHECK(b.getSize() == 2);
+	CHECK(b.getCapacity() == 3);
+	CHECK(a.getSize() == 0);
+	CHECK(a.getCapacity() == 0);
+	CHECK(a.begin() == nullptr);
+}
+
+TEST_CASE("Vector - copy constructor")
+{
+	mVector<int> a;
+	a.push_back(1);
+	a.push_back(2);
+
+	mVector<int> b = a; // invoke copy constructor
+	CHECK(b.getSize() == 2);
+	CHECK(b.getCapacity() == 3);
+	CHECK(b[0] == 1);
+	CHECK(a.getSize() == 2);
+	CHECK(a.getCapacity() == 3);
+
+	b.push_back(3);
+	CHECK(b.getSize() == 3);
+	CHECK(a.getSize() == 2); //remains unchanged
+}
+
+TEST_CASE("Vector - front")
+{
+	mVector<char>a;
+	a.push_back('a');
+	CHECK(a.front() == 'a');
+}
+
+TEST_CASE("Vector - back")
+{
+	mVector<char>a;
+	a.push_back('a');
+	CHECK(a.back() == 'a');
+}
 

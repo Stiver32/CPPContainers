@@ -1,24 +1,33 @@
 #include <iostream>
+
 template <typename T>
+
 struct mVector
 {
+
+	/*    **DATA MEMBERS**   */
+
 	T* _data; // T type pointer to point to address of dynamically allocated data
 	size_t _size; // num of elements within
 	size_t _capacity; //num of elements that can be held
 
+
+	/*    **CONSTRUCTORS**    */  
+	
+	// Default Constructor
 	mVector() : _size(0), _capacity(3)
 	{
-		//when vector is created, we want a new array created of type T (allocated at runtime)
-		_data = new T[_capacity];
-
+		_data = new T[_capacity]; //when vector is created, we want a new array created of type T (allocated at runtime)
 	}
-	//initialize vector of given capacity. size is c
-	mVector(size_t capacity) : _size(capacity), _capacity(capacity)
+	
+	// Constructor with capacity parameter
+		//initialize size and capacity to given capacity
+	mVector(size_t capacity) : _size(capacity), _capacity(capacity) 
 	{
 		_data = new T[_capacity]();
 	}
 
-	//copy constructor
+	// Copy constructor
 	mVector(const mVector& other)
 	{
 		_size = other._size;
@@ -29,11 +38,11 @@ struct mVector
 		}
 	}
 
-	//copy assignment operator, handle self-assignment(same vector is assigned to itself)
-	// release existing memory, then perform a deep copy of the other vector.
-	mVector& operator=(const mVector& other)
+	// Copy assignment operator
+		// release existing memory, then perform a deep copy of the other vector.
+	mVector& operator=(const mVector& other)  
 	{
-		if (this == &other) return *this;
+		if (this == &other) return *this; // handle self-assignment, if other object is same as current, return current object
 		delete[] _data;
 		_size = other._size;
 		_capacity = other._capacity;
@@ -43,13 +52,11 @@ struct mVector
 		{
 			_data[i] = other._data[i];
 		}
-
 		return *this;
 	}
 
-
-	//avoid deep copies when not needed.
-	//move constructor transfers memory ownership from object to object
+	//Move Constructor 
+		// transfers memory ownership from object to object. Deep copies when not needed.
 	mVector(mVector&& other)
 	{
 		_data = other._data;
@@ -60,7 +67,7 @@ struct mVector
 		other._capacity = 0;
 	}
 
-	//move assignment
+	// Move Assignment Constructor
 	mVector& operator=(mVector&& other)
 	{
 		if (this == &other) return *this; //check for self assign
@@ -73,6 +80,34 @@ struct mVector
 		other._capacity = 0;
 		return *this;
 	}
+
+
+
+	/*    ** MEMBER FUNCTIONS **    */
+
+	size_t getSize() const { return _size; }
+	size_t getCapacity() const { return _capacity; }
+	
+	// T* const means a const pointer(the pointer itself can't be reassigned)
+	// const T* (pointer to const data — can't modify what it points to)
+	// the method itself needs to be marked const too:
+		//The const after the parentheses marks the method as callable on a const object —
+		// without it the compiler can't distinguish which version to call.
+
+
+	T* begin() { return _data; } // Return ptr to first element
+	const T* begin() const { return _data; }
+
+	T& front() { return *begin(); } // Return reference to ptr to first element 
+	const T& front() const { return *begin(); }
+
+
+	// Return ptr to ending element
+	T* end() { return _data + _size; }
+	const T* end() const { return _data + _size; }
+
+	T& back() { return *end() - 1; } // Return reference to ptr to last element 
+	const T& back() const { return *end() - 1; }
 
 
 	void resize()
@@ -89,8 +124,8 @@ struct mVector
 	}
 
 
-	//note: different from vector.insert
-	void push_back(const T& element)
+	//different from vector.insert, which can insert anywhere in the vector. TODO?
+	void push_back(const T& element) 
 	{
 		// expand capacity
 		if (_size == _capacity) {
@@ -100,58 +135,26 @@ struct mVector
 		_size++; //increment size
 	}
 
-	//remove whatever is last in list
-	//note: pop_back should prolly DESTROY THE ELEMENT. types with destructors will cause issues
+	// Remove whatever is last in list 
 	void pop_back()
 	{
 		if (_size > 0)
-			//_size--;
-			_data[_size - 1].~T(); //call destructor on last element
+		{
+			_data[_size - 1].~T(); // call destructor for last element in vector 
+			_size--; // decrement size
+		}
 	}
 
-
-
-	size_t getSize() const{
-		return _size;
-	}
-	size_t getCapacity() const{
-		return _capacity;
-	}
-
-	//overload [] operator for random access functionality
-	T& operator[](size_t index){
-		if (index >= _size){
+	// Overload [] operator for random access functionality 
+	T& operator[](size_t index) {
+		if (index >= _size) {
 			throw std::out_of_range("index out of bounds");
 		}
 		return _data[index];
 	}
 
-	// T* const means a const pointer(the pointer itself can't be reassigned)
-	// const T* (pointer to const data — can't modify what it points to)
-	// the method itself needs to be marked const too:
-		//The const after the parentheses marks the method as callable on a const object —
-		// without it the compiler can't distinguish which version to call.
-	//return ptr to first element
-	T* begin() { return _data; }
-	const T* begin() const { return _data; }
-
-	//return ptr to ending element
-	T* end() { return _data + _size; }
-	const T* end() const { return _data + _size; }
-
-	T& front()
-	{
-		return *begin();
-	}
-
-	const T& front() const
-	{
-		return *begin();
-	}
-
 	~mVector(){
 		delete[] _data;
 	}
-
 
 };
