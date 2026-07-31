@@ -17,6 +17,40 @@ public:
 	// Default constructor
 	LinkedList() : _tail(nullptr), _head(nullptr), _listSize(0) {}
 
+	// Copy Constructor
+	LinkedList(const LinkedList& other)
+	{
+		//need new list with same values in same order. but separate node objects
+		_tail = nullptr;
+		_head = nullptr;
+		_listSize = 0;
+
+		Node* curr = other._head;
+		while (curr != nullptr)
+		{
+			push_back(curr->_data);
+			curr = curr->_next;
+		}
+	}
+
+	//Copy Assignment Constructor
+	LinkedList& operator=(const LinkedList& other)
+	{
+		if (this == &other) return *this // handle self-assignment case
+			clear(); //clear list
+
+			
+	}
+
+
+	// Move Constructor
+
+
+	//Move Assignment Constructor
+
+
+
+
 
 	// Method to add to list (to back)
 	void push_back(const T& value) {
