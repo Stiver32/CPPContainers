@@ -106,8 +106,8 @@ struct mVector
 	T* end() { return _data + _size; }
 	const T* end() const { return _data + _size; }
 
-	T& back() { return *end() - 1; } // Return reference to ptr to last element 
-	const T& back() const { return *end() - 1; }
+	T& back() { return *(end() - 1); } // Return reference to ptr to last element
+	const T& back() const { return *(end() - 1); }
 
 
 	void resize()

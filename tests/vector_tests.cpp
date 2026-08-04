@@ -4,7 +4,6 @@
 #include "../include/vector.hpp"
 #include "../include/linkedlist.hpp"
 
-#include <iostream>
 
 
 TEST_CASE("Test Vector size and capacity")

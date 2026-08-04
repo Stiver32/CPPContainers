@@ -10,12 +10,31 @@ private:
 	};
 public:
 
+	/*    **DATA MEMBERS**   */
+
 	Node* _head;
 	Node* _tail;
 	std::size_t _listSize;
 
+
+	/*    **CONSTRUCTORS**    */
+
+
+
 	// Default constructor
 	LinkedList() : _tail(nullptr), _head(nullptr), _listSize(0) {}
+
+	// Constructor with size param
+	LinkedList(size_t size)
+	{
+		_listSize = 0;
+		_tail = nullptr;
+		_head = nullptr;
+		for(int i = 0; i < size; i++)
+		{
+			push_back(i);
+		}
+	}
 
 	// Copy Constructor
 	LinkedList(const LinkedList& other)
@@ -33,14 +52,17 @@ public:
 		}
 	}
 
-	//Copy Assignment Constructor
-	LinkedList& operator=(const LinkedList& other)
-	{
-		if (this == &other) return *this // handle self-assignment case
-			clear(); //clear list
+	////Copy Assignment Constructor
+	//LinkedList& operator=(const LinkedList& other)
+	//{
+	//	if (this == &other) return *this // handle self-assignment case
+	//	clear(); //clear list
+	//	_listSize = other._listSize;
 
-			
-	}
+
+
+	//		
+	//}
 
 
 	// Move Constructor
