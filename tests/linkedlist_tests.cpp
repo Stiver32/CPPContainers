@@ -4,15 +4,6 @@
 
 
 
-TEST_CASE("Test LinkedList Size & LinkedList constructor with size argument")
-{
-	LinkedList<int> ll(5);
-
-	REQUIRE(ll._listSize == 5);
-	REQUIRE(ll.size() == 5);
-	CHECK(ll._listSize == 5);
-	CHECK(ll.size() == 5);
-}
 
 
 //TEST_CASE("Vector - push back")
@@ -56,37 +47,39 @@ TEST_CASE("Test LinkedList Size & LinkedList constructor with size argument")
 //	CHECK(v.front() == 0);
 //}
 
-//TEST_CASE("Vector - move constructor")
+
+
+//TEST_CASE("Vector - front")
 //{
-//	LinkedList<int>a;
-//	a.push_back(1);
-//	a.push_back(2);
-//
-//	LinkedList<int>b = std::move(a); //invoke move
-//
-//	CHECK(b.size() == 2);
-//	CHECK(b[0] == 1);
-//	CHECK(a.size() == 0);
-//	CHECK(a.begin() == nullptr);
-//
+//	LinkedList<char>a;
+//	a.push_back('a');
+//	CHECK(a.front() == 'a');
 //}
 //
-//TEST_CASE("Vector - move assignment")
+//TEST_CASE("Vector - back")
 //{
-//	LinkedList<int> a;
-//	a.push_back(1);
-//	a.push_back(2);
-//
-//	LinkedList<int> b;
-//	b = std::move(a); // invoke move assignment 
-//
-//	CHECK(b.getSize() == 2);
-//	CHECK(b.getCapacity() == 3);
-//	CHECK(a.getSize() == 0);
-//	CHECK(a.getCapacity() == 0);
-//	CHECK(a.begin() == nullptr);
+//	LinkedList<char>a;
+//	a.push_back('a');
+//	CHECK(a.back() == 'a');
 //}
-//
+
+TEST_CASE("Vector - move assignment")
+{
+	LinkedList<int> a;
+	a.push_back(1);
+	a.push_back(2);
+
+	LinkedList<int> b;
+	b = std::move(a); // invoke move assignment 
+	
+	
+	CHECK(b.size() == 2);
+	CHECK(b.getCapacity() == 3);
+	CHECK(a.getSize() == 0);
+	CHECK(a.getCapacity() == 0);
+	CHECK(a.begin() == nullptr);
+}
+
 TEST_CASE("LinkedList - copy constructor")
 {
 	LinkedList<int> a;
@@ -105,17 +98,30 @@ TEST_CASE("LinkedList - copy constructor")
 	CHECK(a.size() == 2); //remains unchanged
 }
 
-//TEST_CASE("Vector - front")
-//{
-//	LinkedList<char>a;
-//	a.push_back('a');
-//	CHECK(a.front() == 'a');
-//}
-//
-//TEST_CASE("Vector - back")
-//{
-//	LinkedList<char>a;
-//	a.push_back('a');
-//	CHECK(a.back() == 'a');
-//}
+TEST_CASE("Test LinkedList Size & LinkedList constructor with size argument")
+{
+	LinkedList<int> ll(5);
+
+	REQUIRE(ll._listSize == 5);
+	REQUIRE(ll.size() == 5);
+	CHECK(ll._listSize == 5);
+	CHECK(ll.size() == 5);
+}
+
+TEST_CASE("Vector - move constructor")
+{
+	LinkedList<int>a;
+	a.push_back(1);
+	a.push_back(2);
+
+	LinkedList<int>b = std::move(a); //invoke move
+
+	CHECK(b.size() == 2);
+	CHECK(b[0] == 1);
+	CHECK(a.size() == 0);
+	CHECK(a.begin() == nullptr);
+
+}
+
+
 

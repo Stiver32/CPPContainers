@@ -57,7 +57,7 @@ struct mVector
 
 	//Move Constructor 
 		// transfers memory ownership from object to object. Deep copies when not needed.
-	mVector(mVector&& other)
+	mVector(mVector&& other) noexcept
 	{
 		_data = other._data;
 		_size = other._size;
@@ -68,7 +68,7 @@ struct mVector
 	}
 
 	// Move Assignment Constructor
-	mVector& operator=(mVector&& other)
+	mVector& operator=(mVector&& other) noexcept
 	{
 		if (this == &other) return *this; //check for self assign
 		delete[] _data;

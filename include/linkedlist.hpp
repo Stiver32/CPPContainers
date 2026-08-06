@@ -6,6 +6,7 @@ private:
 	struct Node {
 		Node* _next;
 		T _data;
+		
 		Node(const T& data) : _next(nullptr), _data(data) {}
 	};
 public:
@@ -19,20 +20,18 @@ public:
 
 	/*    **CONSTRUCTORS**    */
 
-
-
 	// Default constructor
 	LinkedList() : _tail(nullptr), _head(nullptr), _listSize(0) {}
 
 	// Constructor with size param
-	LinkedList(size_t size)
+	LinkedList(std::size_t size)
 	{
 		_listSize = 0;
 		_tail = nullptr;
 		_head = nullptr;
-		for(int i = 0; i < size; i++)
+		for(std::size_t i = 0; i < size; i++) //size_t is unsigned int, use std::size_t to avoid warnings when comparing with signed int
 		{
-			push_back(i);
+			push_back(T()); //default value of T
 		}
 	}
 
@@ -53,26 +52,50 @@ public:
 	}
 
 	////Copy Assignment Constructor
-	//LinkedList& operator=(const LinkedList& other)
-	//{
-	//	if (this == &other) return *this // handle self-assignment case
-	//	clear(); //clear list
-	//	_listSize = other._listSize;
+	LinkedList& operator=(const LinkedList& other)
+	{
+		if (this == &other) return *this; // handle self-assignment case
+		clear(); //clear list
+		// copy nodes from other list to this list
+		Node* curr = other._head;
 
-
-
-	//		
-	//}
+		while (curr != nullptr)
+		{
+			push_back(curr->_data); //add node to back of list
+			curr = curr->_next;
+		}
+		return *this; //return current object
+	}
 
 
 	// Move Constructor
+	LinkedList(LinkedList&& other) noexcept
+	{
+		_head = other._head; 
+		_tail = other._tail;
+		_listSize = other._listSize;
+		other._head = nullptr; 
+		other._tail = nullptr;
+		other._listSize = 0;
+	}
+	
 
 
 	//Move Assignment Constructor
+	LinkedList& operator=(LinkedList&& other) noexcept
+	{
+		if (this == &other) return *this; //handle self-assignment
+		clear(); //clear current list
+		_head = other._head; 
+		_tail = other._tail; 
+		_listSize = other._listSize;
+		other._head = nullptr; 
+		other._tail = nullptr; 
+		other._listSize = 0;
+		return *this;
+	} 
 
-
-
-
+	/*    ** MEMBER FUNCTIONS **    */
 
 	// Method to add to list (to back)
 	void push_back(const T& value) {
