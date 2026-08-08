@@ -21,21 +21,21 @@
 //	CHECK(v.getSize() == 6);
 //}
 //
-//TEST_CASE("Vector - pop back - empty")
-//{
-//	mVector<int>v;
-//	v.pop_back();
-//	CHECK(v.getSize() == 0);
-//}
-//
-//TEST_CASE("Vector - [] operator")
-//{
-//	mVector<int>v(5);
-//	CHECK(v[4] == 0);
-//	v[4] = 5;
-//	CHECK(v[4] == 5);
-//}
-//
+TEST_CASE("LinkedList - pop back - empty")
+{
+	LinkedList<int>v;
+	v.pop_back();
+	CHECK(v.size() == 0);
+}
+
+TEST_CASE("LinkedList - get() ")
+{
+	LinkedList<int>v(5);
+	CHECK(v.get(4) == 0);
+	v.get(4) = 5;
+	CHECK(v.get(4) == 5);
+}
+
 //TEST_CASE("Vector - beginning")
 //{
 //	mVector<int>v(5);
@@ -48,22 +48,21 @@
 //}
 
 
+TEST_CASE("LinkedList - front")
+{
+	LinkedList<char>a;
+	a.push_back('a');
+	CHECK(a.front() == 'a');
+}
 
-//TEST_CASE("Vector - front")
-//{
-//	LinkedList<char>a;
-//	a.push_back('a');
-//	CHECK(a.front() == 'a');
-//}
-//
-//TEST_CASE("Vector - back")
-//{
-//	LinkedList<char>a;
-//	a.push_back('a');
-//	CHECK(a.back() == 'a');
-//}
+TEST_CASE("LinkedList - back")
+{
+	LinkedList<char>a;
+	a.push_back('a');
+	CHECK(a.back() == 'a');
+}
 
-TEST_CASE("Vector - move assignment")
+TEST_CASE("LinkedList - move assignment")
 {
 	LinkedList<int> a;
 	a.push_back(1);
@@ -107,7 +106,7 @@ TEST_CASE("Test LinkedList Size & LinkedList constructor with size argument")
 	CHECK(ll.size() == 5);
 }
 
-TEST_CASE("Vector - move constructor")
+TEST_CASE("LinkedList - move constructor")
 {
 	LinkedList<int>a;
 	a.push_back(1);

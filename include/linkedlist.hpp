@@ -123,6 +123,36 @@ public:
 		++_listSize;
 	}
 
+	//remove whatever is last in list
+	void pop_back()
+	{
+		if (empty()){
+			throw std::out_of_range("List is empty");
+		}
+
+		//if only one node in list
+		if (_head == _tail)
+		{
+			delete _head;
+			_head = nullptr;
+			_tail = nullptr;
+			_listSize = 0;
+		}
+		else
+		{
+			Node* curr = _head;
+			while (curr->_next != _tail)
+			{
+				curr = curr->_next;
+			}
+			delete _tail;
+			_tail = curr;
+			_tail->_next = nullptr;
+			--_listSize;
+		}
+
+	}
+
 	T& get(size_t index) {
 		if (index >= _listSize) {
 			throw std::out_of_range("index out of range");
