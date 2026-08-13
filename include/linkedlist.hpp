@@ -1,4 +1,3 @@
-#include <iostream>
 
 template<typename T>
 class LinkedList {
@@ -9,13 +8,14 @@ private:
 		
 		Node(const T& data) : _next(nullptr), _data(data) {}
 	};
-public:
 
 	/*    **DATA MEMBERS**   */
 
 	Node* _head;
 	Node* _tail;
 	std::size_t _listSize;
+
+public:
 
 
 	/*    **CONSTRUCTORS**    */
@@ -24,14 +24,14 @@ public:
 	LinkedList() : _tail(nullptr), _head(nullptr), _listSize(0) {}
 
 	// Constructor with size param
-	LinkedList(std::size_t size)
+	LinkedList(size_t size)
 	{
 		_listSize = 0;
 		_tail = nullptr;
 		_head = nullptr;
 		for(std::size_t i = 0; i < size; i++) //size_t is unsigned int, use std::size_t to avoid warnings when comparing with signed int
 		{
-			push_back(T()); //default value of T
+			push_back(T{}); //default value of T
 		}
 	}
 
@@ -51,7 +51,7 @@ public:
 		}
 	}
 
-	////Copy Assignment Constructor
+	////Copy Assignment Operator
 	LinkedList& operator=(const LinkedList& other)
 	{
 		if (this == &other) return *this; // handle self-assignment case
@@ -68,6 +68,7 @@ public:
 	}
 
 
+
 	// Move Constructor
 	LinkedList(LinkedList&& other) noexcept
 	{
@@ -81,7 +82,7 @@ public:
 	
 
 
-	//Move Assignment Constructor
+	//Move Assignment Operator
 	LinkedList& operator=(LinkedList&& other) noexcept
 	{
 		if (this == &other) return *this; //handle self-assignment
@@ -137,19 +138,20 @@ public:
 			_head = nullptr;
 			_tail = nullptr;
 			_listSize = 0;
+			return;
 		}
-		else
+
+		Node* curr = _head;
+		while (curr->_next != _tail)
 		{
-			Node* curr = _head;
-			while (curr->_next != _tail)
-			{
-				curr = curr->_next;
-			}
-			delete _tail;
-			_tail = curr;
-			_tail->_next = nullptr;
-			--_listSize;
+			curr = curr->_next;
 		}
+		delete _tail;
+
+		_tail = curr;
+		_tail->_next = nullptr;
+
+		--_listSize;
 
 	}
 
@@ -171,7 +173,7 @@ public:
 		if (index >= _listSize) {
 			throw std::out_of_range("index out of range");
 		}
-		Node* curr = _head;
+		const Node* curr = _head;
 		for (std::size_t i = 0; i < index; ++i) {
 			curr = curr->_next;
 		}
@@ -187,14 +189,15 @@ public:
 		return _head->_data;
 	}
 	//NOTE: If the function observes but returns access to internal data, usually make two versions.
-	//e.g.  T& front();
-	//      const T& front() const;
+		//e.g.  T& front();
+		//      const T& front() const;
 	const T& front() const {
 		if (empty()) {
 			throw std::out_of_range("out of range");
 		}
 		return _head->_data;
 	}
+
 
 	// Get element at back method
 	T& back() {
@@ -210,6 +213,9 @@ public:
 		}
 		return _tail->_data;
 	}
+
+	//return ending element
+	
 
 	// Method returns list size
 	std::size_t size() const {
@@ -238,8 +244,44 @@ public:
 		_listSize = 0;
 	}
 
-	~LinkedList()
+	// Remove element at index
+	void RemoveAt(std::size_t index)
 	{
+		if (index >= _listSize){
+			throw std::out_of_range("Index out of range");
+		}
+		// Remove head
+		if (index == 0){
+			Node* oldHead = _head;
+			_head = _head->_next;
+
+			delete oldHead;
+			--_listSize;
+			if (_listSize == 0){
+				_tail = nullptr;
+			}
+			return;
+		}
+
+		Node* curr = _head;
+		// Move to node immediately before index
+		for (std::size_t i = 0; i < index - 1; ++i){
+			curr = curr->_next;
+		}
+
+		Node* nodeToDelete = curr->_next;
+		curr->_next = nodeToDelete->_next;
+
+		if (nodeToDelete == _tail){
+			_tail = curr;
+		}
+
+		delete nodeToDelete;
+		--_listSize;
+	}
+
+
+	~LinkedList(){
 		clear();
 	}
 };
