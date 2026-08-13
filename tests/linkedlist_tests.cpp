@@ -100,9 +100,7 @@ TEST_CASE("Test LinkedList Size & LinkedList constructor with size argument")
 {
 	LinkedList<int> ll(5);
 
-	REQUIRE(ll._listSize == 5);
 	REQUIRE(ll.size() == 5);
-	CHECK(ll._listSize == 5);
 	CHECK(ll.size() == 5);
 }
 

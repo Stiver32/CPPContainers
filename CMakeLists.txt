@@ -6,6 +6,6 @@ set(CMAKE_CXX_STANDARD 20)
 add_executable(tests
 	tests/vector_tests.cpp
 	tests/linkedlist_tests.cpp
- "include/vector.hpp" "include/linkedlist.hpp" "include/doctest.h")
+ "include/vector.hpp" "include/linkedlist.hpp" "include/doctest.h" "tests/dublinkedlist.cpp")
 
 target_include_directories(tests PRIVATE include)

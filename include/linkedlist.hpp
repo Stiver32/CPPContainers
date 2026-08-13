@@ -1,4 +1,5 @@
 
+#include <iostream>
 template<typename T>
 class LinkedList {
 private:
@@ -13,7 +14,7 @@ private:
 
 	Node* _head;
 	Node* _tail;
-	std::size_t _listSize;
+	size_t _listSize;
 
 public:
 
