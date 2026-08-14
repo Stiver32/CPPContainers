@@ -23,24 +23,58 @@ public:
 	// Default
 	DoublyLinkedList() : _head(nullptr), _tail(nullptr), _listSize(0) {}
 
-	//// Copy Constructor
-	//DoublyLinkedList(const DoublyLinkedList& other)
-	//{
-	//	_tail = nullptr;
-	//	_head = nullptr;
-	//	_listSize = 0;
+	// Copy Constructor
+	DoublyLinkedList(const DoublyLinkedList& other)
+	{
+		_tail = nullptr;
+		_head = nullptr;
+		_listSize = 0;
 
-	//	Node* curr = other._head;
-	//	
-	//}
+		Node* curr = other._head;
+		while (curr != nullptr)
+		{
+			push_back(curr->_data);
+			curr = curr->next;
+		}
+		
+	}
+
+	// Copy Assignment Operator
+	DoublyLinkedList& operator=(const DoublyLinkedList& other)
+	{
+		if (this == other) return *this;
+		clear();
+
+	}
 
 
-	//void push_back(const T& value)
-	//{
-	//	Node* newNode = new Node(value);
-	//	newNode->next
+	void push_back(const T& value)
+	{
+		Node* newNode = new Node(value);
+		if (_head == nullptr) {
+			_head = newNode;
+			_tail = newNode;
+		}
+		else {
+			_tail->_next = newNode;
+			newNode->_prev = _tail;
+			_tail = newNode;
+		}
+		++_listSize;
+	}
 
-	//}
-
+	void clear()
+	{
+		Node* curr = _head;
+		while (curr != nullptr)
+		{
+			Node* temp = curr->_next;
+			delete curr;
+			curr = temp;
+		}
+		_head = nullptr;
+		_tail = nullptr;
+		_listSize = 0;
+	}
 
 };

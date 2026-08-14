@@ -126,15 +126,13 @@ public:
 	}
 
 	//remove whatever is last in list
-	void pop_back()
-	{
+	void pop_back(){
 		if (empty()){
 			throw std::out_of_range("List is empty");
 		}
 
 		//if only one node in list
-		if (_head == _tail)
-		{
+		if (_head == _tail){
 			delete _head;
 			_head = nullptr;
 			_tail = nullptr;
@@ -143,8 +141,7 @@ public:
 		}
 
 		Node* curr = _head;
-		while (curr->_next != _tail)
-		{
+		while (curr->_next != _tail){
 			curr = curr->_next;
 		}
 		delete _tail;
