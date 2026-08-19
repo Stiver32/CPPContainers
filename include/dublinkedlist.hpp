@@ -42,9 +42,44 @@ public:
 	// Copy Assignment Operator
 	DoublyLinkedList& operator=(const DoublyLinkedList& other)
 	{
-		if (this == other) return *this;
+		if (this == &other) return *this;
 		clear();
 
+		Node* curr = other._head;
+
+		while (curr != nullptr)
+		{
+			push_back(curr->_data); //add node to back of list
+			curr = curr->_next;
+		}
+		return *this;
+
+	}
+
+	// Move Constructor
+	DoublyLinkedList(DoublyLinkedList&& other) noexcept
+	{
+		_head = other._head;
+		_tail = other._tail;
+		_listSize = other._listSize;
+		other._head = nullptr;
+		other._tail = nullptr;
+		other._listSize = 0;
+	}
+
+	//Move Assignment 
+
+	DoublyLinkedList& operator=(DoublyLinkedList&& other) noexcept
+	{
+		if (this == &other) return *this;
+		clear();
+		_head = other._head;
+		_tail = other._tail;
+		_listSize = other._listSize;
+		other._head = nullptr;
+		other._tail = nullptr;
+		other._listSize = 0;
+		return *this;
 	}
 
 

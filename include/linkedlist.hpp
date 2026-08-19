@@ -52,7 +52,7 @@ public:
 		}
 	}
 
-	////Copy Assignment Operator
+	// Copy Assignment Operator
 	LinkedList& operator=(const LinkedList& other)
 	{
 		if (this == &other) return *this; // handle self-assignment case
