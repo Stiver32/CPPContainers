@@ -3,24 +3,6 @@
 
 
 
-
-
-
-//TEST_CASE("Vector - push back")
-//{
-//	mVector<int>v(7);
-//	v.push_back(8);
-//	CHECK(v[7] == 8);
-//
-//}
-//
-//TEST_CASE("Vector - pop back")
-//{
-//	mVector<int>v(7);
-//	v.pop_back();
-//	CHECK(v.getSize() == 6);
-//}
-//
 TEST_CASE("LinkedList - pop back - empty")
 {
 	LinkedList<int>v;
@@ -36,16 +18,6 @@ TEST_CASE("LinkedList - get() ")
 	CHECK(v.get(4) == 5);
 }
 
-//TEST_CASE("Vector - beginning")
-//{
-//	mVector<int>v(5);
-//
-//	for (int i = 0; i < v._capacity; i++)
-//	{
-//		v[i] = i;
-//	}
-//	CHECK(v.front() == 0);
-//}
 
 
 TEST_CASE("LinkedList - front")

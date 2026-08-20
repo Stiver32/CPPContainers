@@ -82,6 +82,7 @@ public:
 		return *this;
 	}
 
+	/*    ** MEMBER FUNCTIONS **    */
 
 	void push_back(const T& value)
 	{
@@ -98,6 +99,49 @@ public:
 		++_listSize;
 	}
 
+	void push_front(const T& value)
+	{
+		Node* newNode = new Node(value);
+		if (_head == nullptr)
+		{
+			_head = newNode;
+			_tail = newNode;
+		}
+		else
+		{
+			_head->_prev = newNode;
+			newNode->_next = _head;
+			_head = newNode;
+		}
+		++_listSize;
+	}
+
+	//remove back of list
+	void pop_back()
+	{
+		if (empty()) {
+			throw std::out_of_range("List is empty.");
+		}
+
+		if (_head == _tail)
+		{
+			delete _head;
+			_head = nullptr;
+			_tail = nullptr;
+			_listSize = 0;
+			return;
+		}
+		Node* curr = _tail->_prev;
+		delete _tail;
+		_tail = curr;
+		_tail->_next = nullptr;
+		--_listSize;
+
+	}
+
+	//T& get() STUB
+
+
 	void clear()
 	{
 		Node* curr = _head;
@@ -112,4 +156,18 @@ public:
 		_listSize = 0;
 	}
 
+	size_t size() const
+	{
+		return _listSize;
+	}
+
+	bool empty() const
+	{
+		return _listSize == 0;
+	}
+
+	~DoublyLinkedList()
+	{
+		clear();
+	}
 };
