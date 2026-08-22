@@ -10,15 +10,6 @@ TEST_CASE("DoublyLinkedList - pop back - empty")
 	CHECK(v.size() == 0);
 }
 
-TEST_CASE("LinkedList - get() ")
-{
-	DoublyLinkedList<int>v(5);
-	CHECK(v.get(4) == 0);
-	v.get(4) = 5;
-	CHECK(v.get(4) == 5);
-}
-
-
 
 TEST_CASE("LinkedList - front")
 {

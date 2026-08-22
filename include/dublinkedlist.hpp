@@ -20,23 +20,42 @@ private:
 
 public:
 
+	class Iterator
+	{
+	private: 
+		Node* _current;
+		  
+	public: 
+		Iterator(Node* node) : _current(node) {}
+
+		T& operator*() //give data stored at current node
+		{
+			return _current->_data; 
+		}
+		Iterator& operator++() // pre-increment operator to move to the next node
+		{
+			_current = _current->_next;
+			return *this;
+		}
+
+		bool operator!=(const Iterator& other) const
+		{
+			return _current != other._current;
+		}
+	};
+
 	// Default
 	DoublyLinkedList() : _head(nullptr), _tail(nullptr), _listSize(0) {}
 
 	// Copy Constructor
-	DoublyLinkedList(const DoublyLinkedList& other)
+	DoublyLinkedList(const DoublyLinkedList& other) : _tail(nullptr), _head(nullptr),_listSize(0)
 	{
-		_tail = nullptr;
-		_head = nullptr;
-		_listSize = 0;
-
 		Node* curr = other._head;
 		while (curr != nullptr)
 		{
 			push_back(curr->_data);
-			curr = curr->next;
+			curr = curr->_next;
 		}
-		
 	}
 
 	// Copy Assignment Operator
@@ -57,11 +76,8 @@ public:
 	}
 
 	// Move Constructor
-	DoublyLinkedList(DoublyLinkedList&& other) noexcept
+	DoublyLinkedList(DoublyLinkedList&& other) noexcept : _head(other._head),_tail(other._tail),_listSiz(other._listSize)
 	{
-		_head = other._head;
-		_tail = other._tail;
-		_listSize = other._listSize;
 		other._head = nullptr;
 		other._tail = nullptr;
 		other._listSize = 0;
@@ -109,8 +125,8 @@ public:
 		}
 		else
 		{
-			_head->_prev = newNode;
 			newNode->_next = _head;
+			_head->_prev = newNode;
 			_head = newNode;
 		}
 		++_listSize;
@@ -139,7 +155,7 @@ public:
 
 	}
 
-	//T& get() STUB
+	// replaced get() with iterator...see NOTES.md
 
 
 	void clear()
@@ -164,6 +180,17 @@ public:
 	bool empty() const
 	{
 		return _listSize == 0;
+	}
+
+	// Traversal
+	Iterator begin() // give iterator pointing at first node
+	{
+		return Iterator(_head);
+	}
+
+	Iterator end()
+	{
+		return Iterator(nullptr);
 	}
 
 	~DoublyLinkedList()

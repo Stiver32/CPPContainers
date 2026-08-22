@@ -4,12 +4,15 @@ template <typename T>
 
 struct mVector
 {
+private:
 
 	/*    **DATA MEMBERS**   */
 
 	T* _data; // T type pointer to point to address of dynamically allocated data
-	size_t _size; // num of elements within
-	size_t _capacity; //num of elements that can be held
+	size_t _size; // num of elements stored in vector currently
+	size_t _capacity; // num of elements vector can hold 
+
+public:
 
 
 	/*    **CONSTRUCTORS**    */  
@@ -20,9 +23,8 @@ struct mVector
 		_data = new T[_capacity]; //when vector is created, we want a new array created of type T (allocated at runtime)
 	}
 	
-	// Constructor with capacity parameter
-		//initialize size and capacity to given capacity
-	mVector(size_t capacity) : _size(capacity), _capacity(capacity) 
+	// Constructor that creates N elements of type T, initialized to default value of T
+	mVector(size_t size) : _size(size), _capacity(size)
 	{
 		_data = new T[_capacity]();
 	}
@@ -112,15 +114,24 @@ struct mVector
 
 	void resize()
 	{
-		// create new array with capacity of capacity*2
-		_capacity *= 2;
-		T* _newData = new T[_capacity]; //temp ptr so dont lose data in _data
-		// fill the contents of the new array with the contents of the old array
-		for (size_t i = 0; i < _size; i++) {
-			_newData[i] = _data[i];
+		if (_capacity == 0)
+		{
+			_capacity = 1;
+			_data = new T[_capacity];
+			return;
 		}
-		delete[] _data; // delete old array and assign contents of new array to _data
-		_data = _newData;
+		else
+		{
+			// create new array with capacity of capacity*2
+			_capacity *= 2;
+			T* _newData = new T[_capacity]; //temp ptr so dont lose data in _data
+			// fill the contents of the new array with the contents of the old array
+			for (size_t i = 0; i < _size; i++) {
+				_newData[i] = _data[i];
+			}
+			delete[] _data; // delete old array and assign contents of new array to _data
+			_data = _newData;
+		}
 	}
 
 
@@ -138,15 +149,22 @@ struct mVector
 	// Remove whatever is last in list 
 	void pop_back()
 	{
-		if (_size > 0)
-		{
-			_data[_size - 1].~T(); // call destructor for last element in vector 
-			_size--; // decrement size
+		if (_size == 0) {
+			throw std::out_of_range("Vector is empty");
 		}
+		_size--; //decrement size
 	}
 
 	// Overload [] operator for random access functionality 
 	T& operator[](size_t index) {
+		if (index >= _size) {
+			throw std::out_of_range("index out of bounds");
+		}
+		return _data[index];
+	}
+
+	// Overload [] operator for random access functionality 
+	T& operator[](size_t index) const {
 		if (index >= _size) {
 			throw std::out_of_range("index out of bounds");
 		}
